@@ -46,38 +46,45 @@ The output of this analysis provides competitive insight into industry trends an
 
 ## Code
 
+-- Get the top 3 industries by number of unicorns that joined in 2019-2021
 WITH top_industries AS (
-    SELECT i.industry,
-           COUNT(i.*)
+    SELECT 
+        i.industry,
+        COUNT(*) AS unicorn_count
     FROM industries AS i
-    INNER JOIN dates AS d
-    ON i.company_id = d.company_id
-    WHERE EXTRACT(year FROM d.date_joined) IN (2019, 2020, 2021)
+    INNER JOIN dates AS d ON i.company_id = d.company_id
+    WHERE EXTRACT(YEAR FROM d.date_joined) IN (2019, 2020, 2021)
     GROUP BY i.industry
-    ORDER BY count DESC
-   LIMIT 3
+    ORDER BY unicorn_count DESC
+    LIMIT 3
 ),
 
+-- Calculate yearly number of unicorns and average valuation per industry
 valuation AS (
-    SELECT i.industry,
-           EXTRACT(YEAR FROM d.date_joined) AS year,
-           COUNT(i.*) AS num_unicorns,
-           AVG(f.valuation) AS average_valuation
+    SELECT 
+        i.industry,
+        EXTRACT(YEAR FROM d.date_joined) AS year,
+        COUNT(*) AS num_unicorns,
+        AVG(f.valuation) AS average_valuation
     FROM industries AS i
-    INNER JOIN funding AS f
-    ON i.company_id = f.company_id
-    INNER JOIN dates AS d
-    ON f.company_id = d.company_id
-    GROUP BY industry, year
+    INNER JOIN funding AS f ON i.company_id = f.company_id
+    INNER JOIN dates AS d ON f.company_id = d.company_id
+    GROUP BY i.industry, year
 )
 
-SELECT industry, valuation.year, valuation.num_unicorns, ROUND(AVG(average_valuation/1000000000),2) AS average_valuation_billions
-FROM valuation
-	WHERE year IN (2019,2020,2021)
-	AND industry IN (SELECT industry
-					FROM top_industries)
-	GROUP BY industry, num_unicorns, year
-	ORDER BY year DESC, num_unicorns DESC;
+-- Select final results for top industries and years of interest,
+-- converting average valuation to billions USD and rounding to 2 decimals
+SELECT 
+    v.industry, 
+    v.year, 
+    v.num_unicorns, 
+    ROUND(AVG(v.average_valuation) / 1000000000, 2) AS average_valuation_billions
+FROM valuation v
+WHERE v.year IN (2019, 2020, 2021)
+  AND v.industry IN (SELECT industry FROM top_industries)
+GROUP BY v.industry, v.year, v.num_unicorns
+ORDER BY v.year DESC, v.num_unicorns DESC;
+
 
 ---
 
