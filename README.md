@@ -1,10 +1,6 @@
 # Analyzing Unicorn Companies
 
-In this project, I have analyzed trends in high-growth companies to understand which industries are producing the highest valuations and the rate at which new high-value companies are emerging.  
-
-The output of this analysis provides competitive insight into industry trends and how to better construct a portfolio looking forward.
-
----
+This comprehensive dataset includes:
 
 ## Database Tables
 
