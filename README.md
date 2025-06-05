@@ -43,6 +43,7 @@ This comprehensive dataset includes:
 ## Code
 
 -- Get the top 3 industries by number of unicorns that joined in 2019-2021
+
 WITH top_industries AS (
     SELECT 
         i.industry,
