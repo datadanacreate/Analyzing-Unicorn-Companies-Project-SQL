@@ -1,6 +1,6 @@
 # 🦄 Analyzing Unicorn Companies
 
-Explore trends and valuations of high-growth companies (“unicorns”) using this comprehensive dataset.
+Explore trends and valuations of high-growth, privately held startup companies valued at over $1 billion (“unicorns”) using this comprehensive dataset.
 
 ## Dataset Overview
 
