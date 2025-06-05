@@ -1,8 +1,8 @@
-# Analyzing Unicorn Companies
+# 🦄 Analyzing Unicorn Companies
 
-This comprehensive dataset includes:
+Explore trends and valuations of high-growth companies (“unicorns”) using this comprehensive dataset.
 
-## Database Tables
+## Dataset Overview
 
 ### `dates`
 
@@ -40,7 +40,7 @@ This comprehensive dataset includes:
 
 ---
 
-## Code
+## 💻 SQL Code
 
 ```sql
 -- Get the top 3 industries by number of unicorns that joined in 2019-2021
@@ -81,10 +81,10 @@ WHERE v.year IN (2019, 2020, 2021)
   AND v.industry IN (SELECT industry FROM top_industries)
 GROUP BY v.industry, v.year, v.num_unicorns
 ORDER BY v.year DESC, v.num_unicorns DESC;
-
+```
 ---
 
-## Output
+## 📈 Analysis Output
 
 | Index | Industry                        | Year | Number of Unicorns| Average Valuation (Billions USD) |
 |-------|---------------------------------|------|-------------------|----------------------------------|
@@ -97,3 +97,11 @@ ORDER BY v.year DESC, v.num_unicorns DESC;
 | 6     | Fintech                         | 2019 | 20                | 6.80                             |
 | 7     | Internet software & services    | 2019 | 13                | 4.23                             |
 | 8     | E-commerce & direct-to-consumer | 2019 | 12                | 2.58                             |
+
+
+## Summary
+
+Identified **top 3 industries** producing unicorns from 2019–2021.
+Analyzed **yearly unicorn counts** and **average valuations** per industry.
+Converted valuations into **billions USD** for clear financial perspective.
+Highlighted trends in high-growth sectors for strategic portfolio insights.
