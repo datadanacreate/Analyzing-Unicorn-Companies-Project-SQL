@@ -54,11 +54,12 @@ WITH top_industries AS (
     WHERE EXTRACT(YEAR FROM d.date_joined) IN (2019, 2020, 2021)
     GROUP BY i.industry
     ORDER BY unicorn_count DESC
-    LIMIT 3
-),
+    LIMIT 3),
 
 -- Calculate yearly number of unicorns and average valuation per industry
+
 valuation AS (
+
     SELECT 
         i.industry,
         EXTRACT(YEAR FROM d.date_joined) AS year,
@@ -67,12 +68,14 @@ valuation AS (
     FROM industries AS i
     INNER JOIN funding AS f ON i.company_id = f.company_id
     INNER JOIN dates AS d ON f.company_id = d.company_id
-    GROUP BY i.industry, year
-)
+    GROUP BY i.industry, year)
 
 -- Select final results for top industries and years of interest,
 -- converting average valuation to billions USD and rounding to 2 decimals
+
 SELECT 
+
+
     v.industry, 
     v.year, 
     v.num_unicorns, 
